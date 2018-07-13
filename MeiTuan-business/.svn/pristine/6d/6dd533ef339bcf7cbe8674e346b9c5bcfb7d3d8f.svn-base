@@ -1,0 +1,112 @@
+@charset "utf-8";
+
+#login_logo{
+	margin-left:180px;
+	margin-top:30px;
+}
+#login_left{
+	margin-left:130px;
+	margin-top:10px;
+	float:left;
+}
+#login_right{
+	width:300px;
+	height:400px;
+	margin-left:80px;
+	margin-top:50px;
+	background-color:rgb(240,240,240);
+	border-width:1px;
+	border-color:rgb(170,170,170);
+	border-style:solid;
+	border-radius:15px;
+	box-shadow:-5px 5px 5px rgb(180,180,180);
+	float:left
+}
+/* input::placeholder{
+	text-align:center;
+} */
+#userName,#password{
+	margin-top:20px;
+	width:200px;
+	height:40px;
+	border-width:1px;
+	border-color:rgb(210,210,210);
+	border-style:solid;
+	border-radius:7px;
+}
+#userName:focus,#password:focus{
+	border-color:rgb(255,215,0);
+}
+#register{
+	margin-top:30px;
+	width:150px;
+	height:30px;
+	background-color:rgb(255,215,0);
+	color:rgb(255,255,255);
+	border-color:rgb(255,215,0);
+	border-radius:10px;
+}
+#register:hover{
+	background-color:rgb(255,230,0);
+}
+#legend{
+	margin-top:20px;
+	margin-left:10px;
+	margin-bottom:20px;
+}
+#protocol{
+	margin:10px 15px;
+}
+span:nth-child(2){
+	margin-left:150px;
+}
+hr{
+	margin:15px;
+	display:inline-block;
+	vertical-align:middle;
+	width:65px;
+	border-top:1px solid rgb(160,160,160);
+}
+.font_size{
+	font-size:0.7em;
+	color:rgb(160,160,160);
+}
+.bottom_img{
+	margin:auto 10px;
+}
+#triangle1{
+	position:absolute;
+	left:1100px;
+	top:220px;
+}
+#triangle2{
+	position:absolute;
+	left:1100px;
+	top:280px;
+}
+.triangle{
+	width:40px;
+	height:40px;
+}
+.position{
+	visibility:hidden;
+}
+.judge{
+	height:40px;
+	background:rgba(255,215,0,0.8);
+	color:rgb(255,255,255);
+	line-height:40px;
+	border-radius:10px;
+	border:1 rgb(255,215,0) solid;
+}
+#judge1{
+	position:absolute;
+	left:1125px;
+	top:220px;
+}
+#judge2{
+	position:absolute;
+	left:1125px;
+	top:280px;
+}
+

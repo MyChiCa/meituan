@@ -1,0 +1,154 @@
+package com.MeiTuan.pojo;
+
+import java.util.List;
+
+public class TRestaurant {
+    private Integer rstrId;
+
+    private String rstrName;
+
+    private String telephone;
+
+    private String takeTime;
+
+    private Double btakeFare;
+
+    private Double takeFare;
+
+    private Integer typeId;
+
+    private String foodlicence;
+
+    private String businesslicence;
+
+    private String address;
+
+    private String workTime;
+
+    private Integer grade;
+
+    private String rstrImage;
+
+    private String description;
+
+    public List<TRestaurantType> gettRestaurantTypes() {
+		return tRestaurantTypes;
+	}
+
+	public void settRestaurantTypes(List<TRestaurantType> tRestaurantTypes) {
+		this.tRestaurantTypes = tRestaurantTypes;
+	}
+
+	private List<TRestaurantType> tRestaurantTypes;
+    public Integer getRstrId() {
+        return rstrId;
+    }
+
+    public void setRstrId(Integer rstrId) {
+        this.rstrId = rstrId;
+    }
+
+    public String getRstrName() {
+        return rstrName;
+    }
+
+    public void setRstrName(String rstrName) {
+        this.rstrName = rstrName == null ? null : rstrName.trim();
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone == null ? null : telephone.trim();
+    }
+
+    public String getTakeTime() {
+        return takeTime;
+    }
+
+    public void setTakeTime(String takeTime) {
+        this.takeTime = takeTime == null ? null : takeTime.trim();
+    }
+
+    public Double getBtakeFare() {
+        return btakeFare;
+    }
+
+    public void setBtakeFare(Double btakeFare) {
+        this.btakeFare = btakeFare;
+    }
+
+    public Double getTakeFare() {
+        return takeFare;
+    }
+
+    public void setTakeFare(Double takeFare) {
+        this.takeFare = takeFare;
+    }
+
+    public Integer getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(Integer typeId) {
+        this.typeId = typeId;
+    }
+
+    public String getFoodlicence() {
+        return foodlicence;
+    }
+
+    public void setFoodlicence(String foodlicence) {
+        this.foodlicence = foodlicence == null ? null : foodlicence.trim();
+    }
+
+    public String getBusinesslicence() {
+        return businesslicence;
+    }
+
+    public void setBusinesslicence(String businesslicence) {
+        this.businesslicence = businesslicence == null ? null : businesslicence.trim();
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
+    }
+
+    public String getWorkTime() {
+        return workTime;
+    }
+
+    public void setWorkTime(String workTime) {
+        this.workTime = workTime == null ? null : workTime.trim();
+    }
+
+    public Integer getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Integer grade) {
+        this.grade = grade;
+    }
+
+    public String getRstrImage() {
+        return rstrImage;
+    }
+
+    public void setRstrImage(String rstrImage) {
+        this.rstrImage = rstrImage == null ? null : rstrImage.trim();
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
+    }
+}

@@ -1,0 +1,40 @@
+package com.meituan.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.MeiTuan.mapper.TFoodMapper;
+import com.MeiTuan.mapper.TMenuMapper;
+import com.MeiTuan.pojo.TFood;
+import com.MeiTuan.pojo.TMenu;
+
+
+@Service
+public class FoodService implements com.meituan.service.FoodService {
+
+@Autowired
+private TFoodMapper tFoodMapper;
+private TMenuMapper tMenuMapper;
+    /*
+     * 显示所有菜色
+     * @see com.meituan.service.FoodService#showAllfood()
+     */
+	@Override
+	public List<TFood> showAllfood() {
+		List<TFood> list = tFoodMapper.selectAllFood();
+		return list;
+	}
+	@Override
+	public void delFood(Integer foodId) {
+		tFoodMapper.deleteByPrimaryKey(foodId);		
+	}
+	@Override
+	public List<TMenu> selectAllMenu() {
+		List<TMenu> menuList= tMenuMapper.selectAllMenu();
+		System.out.println(menuList);
+		return menuList;
+	}
+
+}

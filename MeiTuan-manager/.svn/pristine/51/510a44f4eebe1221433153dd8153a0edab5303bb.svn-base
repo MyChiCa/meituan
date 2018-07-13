@@ -1,0 +1,232 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>后台管理</title>
+<meta name="description" content="">
+<meta name="author" content="templatemo">
+<link
+	href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700'
+	rel='stylesheet' type='text/css'>
+<!-- JS -->
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-1.11.2.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/font-awesome.min.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<link href="${pageContext.request.contextPath}/css/templatemo-style.css"
+	rel="stylesheet">
+<script src="${pageContext.request.contextPath}/js/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/sweetalert.css">
+<style>
+.show-span {
+	border: none !important;
+}
+</style>
+</head>
+<body>
+
+	<%--修改商品信息模态框--%>
+	<!-- Modal -->
+	<div class="modal fade" id="update-food" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">修改商家信息</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-horizontal" id="update-form" name="update-form"
+						method="post">
+						<input type="hidden" id="edit_rstrId" name="rstrId"/>
+						<div class="form-group">
+							<label for="foodname" class="col-sm-2 control-label">店铺名</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" name="rstrName"
+									id="edit_rstrName">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="telephone" class="col-sm-2 control-label">电话</label>
+							<div class="col-sm-9">
+								<input type="number" class="form-control" name="telephone"
+									id="edit_telephone">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="takeTime" class="col-sm-2 control-label">配送时间</label>
+							<div class="col-sm-9">
+								<input type="number" class="form-control" name="takeTime"
+									id="edit_takeTime">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="btakeFare" class="col-sm-2 control-label">起送费用</label>
+							<div class="col-sm-9">
+								<input type="number" class="form-control" id="edit_btakeFare" name="btakeFare">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="description" class="col-sm-2 control-label">配送费用</label>
+							<div class="col-sm-9">
+								<textarea class="form-control" id="takeFare"
+									name="takeFare"></textarea>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="menuName" class="col-sm-2 control-label">餐单</label>
+							<div class="col-sm-9">
+								<select class="form-control" id="edit_menu" name="menuName">
+								<c:forEach items="${menuList}" var="item">
+                                    <option value="${item.menuId}">${item.menuName}</option>
+                                </c:forEach>
+								</select>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="button" class="btn btn-primary" id="saveUpdate">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id=total name=total>
+		<!-- Left column -->
+		<div class="templatemo-flex-row">
+			<jsp:include page="../sidebar.jsp" />
+			<!-- Main content -->
+			<div class="templatemo-content col-1 light-gray-bg">
+				<jsp:include page="foodsNav.jsp" />
+				<div class="templatemo-content-container">
+					<div class="templatemo-content-widget no-padding">
+						<div class="panel panel-default table-responsive">
+							<table id="foodinfo"
+								class="table table-striped table-bordered templatemo-user-table">
+								<thead>
+									<tr>
+										<td><a href="" class="white-text templatemo-sort-by">id<span
+												class="caret"></span></a></td>
+										<td><a href="" class="white-text templatemo-sort-by">店铺名<span
+												class="caret"></span></a></td>
+										<td><a href="" class="white-text templatemo-sort-by">电话<span
+												class="caret"></span></a></td>
+										<td><a href="" class="white-text templatemo-sort-by">类型<span
+												class="caret"></span></a></td>
+										<td><a href="" class="white-text templatemo-sort-by">地址<span
+												class="caret"></span></a></td>
+										<td>维护</td>
+									</tr>
+								</thead>
+								<tbody>
+									<c:forEach items="${requestScope.pages.getList()}" var="rest"
+										varStatus="num">
+										<tr>
+											<td>${rest.rstrId}</td>
+											<td>${rest.rstrName}</td>
+											<td>${rest.telephone}</td>
+											<td>${rest.foodNum}</td>
+											<td>${rest.foodDescribe}</td>
+											<td>
+												<a href="" data-toggle="modal" data-target="#update-food" onclick="editFoodInfo(${rest.foodId})" class="templatemo-edit-btn">编辑</a>
+												<a href="${pageContext.request.contextPath}/food/delete?foodId=${rest.foodId}" onclick="return confirm('确定删除?');" class="templatemo-delete-btn">删除</a>
+											</td>
+										</tr>
+									</c:forEach>
+								</tbody>
+							</table>
+
+							<div class="message">
+								共<i class="blue">${requestScope.pages.total}</i>条记录，当前显示第&nbsp;<i
+									class="blue">${requestScope.pages.pageNum}/${requestScope.pages.pages}</i>&nbsp;页
+							</div>
+							<div style="text-align:center;">
+								<ul class="pagination">
+									<c:if test="${!requestScope.pages.isFirstPage}">
+										<li><a
+											href="javascript:queryAllPerson(${requestScope.pages.firstPage}, ${requestScope.pages.pageSize});">首页</a></li>
+										<li><a
+											href="javascript:queryAllPerson(${requestScope.pages.prePage}, ${requestScope.pages.pageSize});">上一页</a></li>
+									</c:if>
+									<c:forEach items="${requestScope.pages.navigatepageNums}"
+										var="navigatepageNum">
+
+										<c:if test="${navigatepageNum==requestScope.pages.pageNum}">
+											<li class="active"><a
+												href="javascript:queryAllPerson(${navigatepageNum}, ${requestScope.pages.pageSize});">${navigatepageNum}</a></li>
+										</c:if>
+										<c:if test="${navigatepageNum!=requestScope.pages.pageNum}">
+											<li><a
+												href="javascript:queryAllPerson(${navigatepageNum}, ${requestScope.pages.pageSize});">${navigatepageNum}</a></li>
+										</c:if>
+									</c:forEach>
+									<c:if test="${!requestScope.pages.isLastPage}">
+										<li><a
+											href="javascript:queryAllPerson(${requestScope.pages.nextPage}, ${requestScope.pages.pageSize});">下一页</a></li>
+										<li><a
+											href="javascript:queryAllPerson(${requestScope.pages.lastPage}, ${requestScope.pages.pageSize});">最后一页</a></li>
+									</c:if>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="path" style="display: none;">${pageContext.request.contextPath}</div>
+	<!-- jQuery -->
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath}/js/templatemo-script.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {});
+		function queryAllPerson(pageNum, pageSize) {
+			$("#total").load("http://localhost:8083/food/showData?pageNum=" + pageNum + "&pageSize=" + pageSize);
+		}
+	</script>
+	<script>
+		$(document).ready(function() {
+			var imageUrl = $('img.content-bg-img').attr('src');
+			$('.templatemo-content-img-bg').css('background-image', 'url(' + imageUrl + ')');
+			$('img.content-bg-img').hide();
+		});
+	</script>
+    <script type="text/javascript">
+		 function editFoodInfo(foodId) {
+			$.ajax({ 
+				type:"get",
+				url:"http://localhost:8083/food/showById?ran=Match.Random()",
+				data:{"foodId":foodId},
+				success:function(data) {
+                    $("#edit_userId").val(data.userId);
+					$("#edit_userName").val(data.userName);
+					$("#edit_image").val(data.headPortrait);
+					$("#edit_gender").val(data.gender);
+					$("#edit_age").val(data.age);
+					$("#edit_tele").val(data.telephone);
+					$("#edit_pass").val(data.loginPassword);
+					$("#edit_birth").val(birth);
+					$("#edit_Email").val(data.email);
+					$("#edit_loginTime").val(logTime);
+					$("#edit_registertime").val(regTime);
+					$("#edit_address").val(data.address);
+					
+				}
+			});
+			}
+</script>
+</body>
+</html>

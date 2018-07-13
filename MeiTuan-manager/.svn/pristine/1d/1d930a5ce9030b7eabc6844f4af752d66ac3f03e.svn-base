@@ -1,0 +1,40 @@
+package com.meituan.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.MeiTuan.mapper.TRestaurantMapper;
+import com.MeiTuan.pojo.TRestaurant;
+import com.meituan.service.RestaurantService;
+
+@Service
+public class RestaurantServiceImpl implements RestaurantService {
+
+@Autowired
+private TRestaurantMapper tRestaurantMapper;
+	@Override
+	public List<TRestaurant> showAllRestaurant() {
+		List<TRestaurant> rest = tRestaurantMapper.selectAllRest();
+		return rest;
+	}
+	@Override
+	public TRestaurant findById(Integer rstrId) {
+		TRestaurant tRestaurant = tRestaurantMapper.selectByPrimaryKey(rstrId);
+		return tRestaurant;
+	}
+	@Override
+	public void updateById(TRestaurant tRestaurant) {
+		tRestaurantMapper.updateByPrimaryKey(tRestaurant);		
+	}
+	@Override
+	public void deleteById(Integer rstrId) {
+		tRestaurantMapper.deleteByPrimaryKey(rstrId);
+	}
+	@Override
+	public void insertRstr(TRestaurant tRestaurant) {
+		tRestaurantMapper.insert(tRestaurant);		
+	}
+
+}

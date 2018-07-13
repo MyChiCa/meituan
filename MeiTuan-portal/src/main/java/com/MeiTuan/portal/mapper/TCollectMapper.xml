@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.MeiTuan.portal.mapper.TCollectMapper" >
+  <resultMap id="BaseResultMap" type="com.MeiTuan.portal.pojo.TCollect" >
+    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="rstr_id" property="rstrId" jdbcType="INTEGER" />
+    <result column="c_date" property="cDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_id, rstr_id, c_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.MeiTuan.portal.pojo.TCollectExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_collect
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.MeiTuan.portal.pojo.TCollectKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_collect
+    where user_id = #{userId,jdbcType=INTEGER}
+      and rstr_id = #{rstrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.MeiTuan.portal.pojo.TCollectKey" >
+    delete from t_collect
+    where user_id = #{userId,jdbcType=INTEGER}
+      and rstr_id = #{rstrId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.MeiTuan.portal.pojo.TCollectExample" >
+    delete from t_collect
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.MeiTuan.portal.pojo.TCollect" >
+    insert into t_collect (user_id, rstr_id, c_date
+      )
+    values (#{userId,jdbcType=INTEGER}, #{rstrId,jdbcType=INTEGER}, #{cDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.MeiTuan.portal.pojo.TCollect" >
+    insert into t_collect
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="rstrId != null" >
+        rstr_id,
+      </if>
+      <if test="cDate != null" >
+        c_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="rstrId != null" >
+        #{rstrId,jdbcType=INTEGER},
+      </if>
+      <if test="cDate != null" >
+        #{cDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.MeiTuan.portal.pojo.TCollectExample" resultType="java.lang.Integer" >
+    select count(*) from t_collect
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_collect
+    <set >
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rstrId != null" >
+        rstr_id = #{record.rstrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.cDate != null" >
+        c_date = #{record.cDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_collect
+    set user_id = #{record.userId,jdbcType=INTEGER},
+      rstr_id = #{record.rstrId,jdbcType=INTEGER},
+      c_date = #{record.cDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.MeiTuan.portal.pojo.TCollect" >
+    update t_collect
+    <set >
+      <if test="cDate != null" >
+        c_date = #{cDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+      and rstr_id = #{rstrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.MeiTuan.portal.pojo.TCollect" >
+    update t_collect
+    set c_date = #{cDate,jdbcType=TIMESTAMP}
+    where user_id = #{userId,jdbcType=INTEGER}
+      and rstr_id = #{rstrId,jdbcType=INTEGER}
+  </update>
+</mapper>

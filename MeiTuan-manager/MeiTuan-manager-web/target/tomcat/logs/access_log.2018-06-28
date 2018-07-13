@@ -1,0 +1,16 @@
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:44 +0800] "GET /admin/login HTTP/1.1" 200 1824 http-bio-8083-exec-1 1156
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:44 +0800] "GET /fonts/fontawesome-webfont.woff2?v=4.7.0 HTTP/1.1" 404 949 http-bio-8083-exec-2 12
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:44 +0800] "GET /fonts/fontawesome-webfont.woff?v=4.7.0 HTTP/1.1" 404 949 http-bio-8083-exec-3 4
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:44 +0800] "GET /fonts/fontawesome-webfont.ttf?v=4.7.0 HTTP/1.1" 404 949 http-bio-8083-exec-4 5
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:44 +0800] "GET /favicon.ico HTTP/1.1" 404 949 http-bio-8083-exec-5 2
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:44 +0800] "GET /favicon.ico HTTP/1.1" 404 949 http-bio-8083-exec-6 6
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:47 +0800] "POST /admin/loginValidate HTTP/1.1" 200 11708 http-bio-8083-exec-8 747
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:47 +0800] "GET /fonts/fontawesome-webfont.woff2?v=4.7.0 HTTP/1.1" 404 949 http-bio-8083-exec-9 3
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:47 +0800] "GET /fonts/fontawesome-webfont.woff?v=4.7.0 HTTP/1.1" 404 949 http-bio-8083-exec-10 9
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:47 +0800] "GET /fonts/fontawesome-webfont.ttf?v=4.7.0 HTTP/1.1" 404 949 http-bio-8083-exec-10 2
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:49 +0800] "GET /restaurant/showData HTTP/1.1" 200 20133 http-bio-8083-exec-10 629
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:49 +0800] "GET /restaurant/rstrImage HTTP/1.1" 404 949 http-bio-8083-exec-10 11
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:49 +0800] "GET /restaurant/rstrImage HTTP/1.1" 404 949 http-bio-8083-exec-10 2
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:49 +0800] "GET /fonts/fontawesome-webfont.woff2?v=4.7.0 HTTP/1.1" 404 949 http-bio-8083-exec-10 4
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:49 +0800] "GET /fonts/fontawesome-webfont.woff?v=4.7.0 HTTP/1.1" 404 949 http-bio-8083-exec-10 2
+0:0:0:0:0:0:0:1 - - [28/Jun/2018:19:17:49 +0800] "GET /fonts/fontawesome-webfont.ttf?v=4.7.0 HTTP/1.1" 404 949 http-bio-8083-exec-10 3

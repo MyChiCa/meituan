@@ -1,0 +1,6 @@
+com\MeiTuan\controller\adminController.class
+com\MeiTuan\controller\OrderController.class
+com\MeiTuan\controller\RestaurantController.class
+com\MeiTuan\controller\PageController.class
+com\MeiTuan\controller\UserController.class
+com\MeiTuan\controller\FoodController.class

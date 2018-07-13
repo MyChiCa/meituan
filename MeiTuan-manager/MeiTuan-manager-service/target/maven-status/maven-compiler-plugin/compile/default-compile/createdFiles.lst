@@ -1,0 +1,8 @@
+com\meituan\service\FoodService.class
+com\meituan\service\RestaurantService.class
+com\meituan\service\impl\RestaurantServiceImpl.class
+com\meituan\service\impl\AdminServiceImpl.class
+com\meituan\service\impl\FoodServiceImpl.class
+com\meituan\service\impl\UserServiceImpl.class
+com\meituan\service\UserService.class
+com\meituan\service\AdminService.class

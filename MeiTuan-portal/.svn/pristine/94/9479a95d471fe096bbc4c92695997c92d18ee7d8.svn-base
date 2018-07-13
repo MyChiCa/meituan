@@ -1,0 +1,113 @@
+package com.MeiTuan.portal.controller;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.MeiTuan.portal.pojo.OrderExtend;
+import com.MeiTuan.portal.pojo.Order;
+import com.MeiTuan.portal.pojo.TUser;
+import com.MeiTuan.portal.service.OrderDetailService;
+import com.MeiTuan.portal.service.OrderService;
+
+@Controller
+@RequestMapping("/order")
+public class OrderController {
+  
+@Autowired
+private OrderService orderService;
+
+@Autowired
+private HttpServletRequest request;
+
+@Autowired
+private OrderDetailService orderDetailService;
+
+      /*
+       * 
+       * 确认订单
+       */
+     @RequestMapping("/showOrder")
+      public String showOrder(OrderExtend orderExtends){
+    	 //联表查订单
+    	  int orderId = (int)request.getSession().getAttribute("orderId");
+    	  List<OrderExtend> list = orderService.showOrder(orderId);
+    	  int id = list.get(0).getOrderId();
+    	  double takeFare = list.get(0).getTakeFare();
+    	  OrderExtend orderExtend = orderService.showMoney(id);
+    	  
+    	  request.setAttribute("orderList", list);
+    	  request.setAttribute("totalMoney", orderExtend);
+    	  request.setAttribute("rstrName", list.get(0).getRstrName());
+    	  double plustakeFare = takeFare + orderExtend.getMoney();
+    	  request.setAttribute("plustakeFare", plustakeFare);
+    	  HttpSession session = request.getSession();
+    	  
+    	  session.setAttribute("oderExtend", orderExtend);
+    	  //得到订单
+    	  Order orderHead = orderService.findOrderhead(orderId);
+    	  request.setAttribute("orderHead", orderHead);
+    	  return "orderConfirm";
+      }
+      
+      @RequestMapping("/updateState")
+      public String updateState(HttpServletRequest request){
+    	  HttpSession session = request.getSession();
+    	  OrderExtend od = (OrderExtend) session.getAttribute("oderExtend");
+    	  int id = od.getOrderId();
+    	  orderService.updateState(id);
+    	  
+     	 //联表查订单
+    	  List<OrderExtend> list = orderService.showOrder(id);
+      	  
+    	  //配送费
+    	  double takeFare = list.get(0).getTakeFare();
+    	  //加上配送费的
+    	  double plustakeFare = takeFare + od.getMoney();
+    	  request.setAttribute("plustakeFare", plustakeFare);
+    	  request.setAttribute("orderList", list);
+    	  request.setAttribute("orderExtendMoney", od);
+    	  request.setAttribute("takeFare", takeFare);
+    	  //得到订单头
+    	  Order orderHead = orderService.findOrderhead(id);
+    	  request.setAttribute("orderHead", orderHead);
+    	  request.setAttribute("rstrName", list.get(0).getRstrName());
+    	  return "acceptOrder";
+      }
+    
+    //生成订单
+    @RequestMapping("/enjoyYourself")
+  	public String insertIntoOrder(){
+  		String id =request.getParameter("id");
+  		int rstrId = 0;
+  		if(id != null){
+  			rstrId = Integer.parseInt(id);
+  		}
+
+  		TUser tUser = (TUser)request.getSession().getAttribute("loginUser");
+  		if(tUser == null){
+  			return "redirect:/login";
+  		}
+
+  		Order tOrder = new Order();
+
+  		tOrder.setRstrId(rstrId);
+  		tOrder.setUserId(tUser.getUserId());
+  		tOrder.setOrderTime(new Date());
+  		tOrder.setOrderState(0);
+
+ 		orderService.insertOrder(tOrder);
+		orderDetailService.updataOrderdDet(tOrder.getOrderId());
+		request.getSession().setAttribute("orderId", tOrder.getOrderId());
+  		return "redirect:showOrder";
+  	}
+    
+
+}
+

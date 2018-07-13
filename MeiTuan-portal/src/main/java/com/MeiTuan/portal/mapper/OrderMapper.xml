@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.MeiTuan.portal.mapper.OrderMapper">
+     <resultMap id="BaseResultMap" type="com.MeiTuan.portal.pojo.Order" >
+	    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+	    <result column="rstr_id" property="rstrId" jdbcType="INTEGER" />
+	    <result column="user_id" property="userId" jdbcType="INTEGER" />
+	    <result column="money" property="money" jdbcType="REAL" />
+	    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+	    <result column="order_state" property="orderState" jdbcType="INTEGER" />
+    </resultMap>
+    
+    <!-- 添加订单 -->
+	<insert id="insertOrder" parameterType="com.MeiTuan.portal.pojo.Order">
+        <selectKey order="AFTER" keyProperty="orderId" resultType="int">  
+            select LAST_INSERT_ID()  
+        </selectKey>  
+       	insert into t_order(rstr_id, user_id, order_time, order_state) 
+		values(#{rstrId}, 
+			   #{userId},
+			   #{orderTime}, 
+			   #{orderState}
+			   ) 
+	</insert>
+	
+	<!-- 查找订单头 -->
+	<select id="orderMapper" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * from t_order where order_id=#{orderId}
+	</select>
+	
+	<!-- 完成订单，改变状态 -->
+	<update id="updateFinishState" parameterType="java.lang.Integer">
+		update t_order set order_state=3 where order_id=#{orderId}
+	</update>
+</mapper>

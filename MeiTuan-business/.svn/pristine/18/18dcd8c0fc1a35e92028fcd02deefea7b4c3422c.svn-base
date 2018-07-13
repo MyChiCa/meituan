@@ -1,0 +1,29 @@
+package com.MeiTuan.service.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.MeiTuan.mapper.TOrderExtendMapper;
+import com.MeiTuan.mapper.TOrderMapper;
+import com.MeiTuan.pojo.OrderExtend;
+import com.MeiTuan.service.OrderService;
+
+@Service
+public class OrderServiceImpl implements OrderService{
+
+@Autowired
+private TOrderExtendMapper tOrderExtendMapper;
+private TOrderMapper tOrderMapper;
+	@Override
+	public List<OrderExtend> showAllOrders() {
+		List<OrderExtend> list = tOrderExtendMapper.showAllOrders();
+		return list;
+	}
+	@Override
+	public void updateState(Integer id) {
+		tOrderExtendMapper.updateState(id);		
+	}
+
+}

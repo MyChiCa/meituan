@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.MeiTuan.mapper.TRestaurantMapper" >
+  <resultMap id="BaseResultMap" type="com.MeiTuan.pojo.TRestaurant" >
+    <id column="rstr_id" property="rstrId" jdbcType="INTEGER" />
+    <result column="rstr_name" property="rstrName" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="take_time" property="takeTime" jdbcType="VARCHAR" />
+    <result column="btake_fare" property="btakeFare" jdbcType="DOUBLE" />
+    <result column="take_fare" property="takeFare" jdbcType="DOUBLE" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="foodLicence" property="foodlicence" jdbcType="VARCHAR" />
+    <result column="businessLicence" property="businesslicence" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="work_time" property="workTime" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="rstr_image" property="rstrImage" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.MeiTuan.pojo.TRestaurant" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap type="com.MeiTuan.pojo.TRestaurant" id="TRestaurant_typeResultMap">
+    <id column="rstr_id" property="rstrId" jdbcType="INTEGER" />
+    <result column="rstr_name" property="rstrName" jdbcType="VARCHAR" />
+    <result column="telephone" property="telephone" jdbcType="VARCHAR" />
+    <result column="take_time" property="takeTime" jdbcType="VARCHAR" />
+    <result column="btake_fare" property="btakeFare" jdbcType="DOUBLE" />
+    <result column="take_fare" property="takeFare" jdbcType="DOUBLE" />
+    <result column="type_id" property="typeId" jdbcType="INTEGER" />
+    <result column="foodLicence" property="foodlicence" jdbcType="VARCHAR" />
+    <result column="businessLicence" property="businesslicence" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="work_time" property="workTime" jdbcType="VARCHAR" />
+    <result column="grade" property="grade" jdbcType="INTEGER" />
+    <result column="rstr_image" property="rstrImage" jdbcType="VARCHAR" />
+        
+        <!-- restaurant_type配置 -->
+        <collection property="tRestaurantTypes" ofType="com.MeiTuan.pojo.TRestaurantType">
+             <id column="type_id" property="typeId" jdbcType="INTEGER" />
+             <result column="rstr_type" property="rstrType" jdbcType="VARCHAR" />
+             <result column="description" property="description" jdbcType="VARCHAR" />
+        </collection>
+    </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rstr_id, rstr_name, telephone, take_time, btake_fare, take_fare, type_id, foodLicence, 
+    businessLicence, address, work_time, grade, rstr_image
+  </sql>
+  <sql id="Blob_Column_List" >
+    description
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.MeiTuan.pojo.TRestaurantExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.MeiTuan.pojo.TRestaurantExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_restaurant
+    where rstr_id = #{rstrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_restaurant
+    where rstr_id = #{rstrId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.MeiTuan.pojo.TRestaurantExample" >
+    delete from t_restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.MeiTuan.pojo.TRestaurant" >
+    insert into t_restaurant (rstr_id, rstr_name, telephone, 
+      take_time, btake_fare, take_fare, 
+      type_id, foodLicence, businessLicence, 
+      address, work_time, grade, 
+      rstr_image, description)
+    values (#{rstrId,jdbcType=INTEGER}, #{rstrName,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
+      #{takeTime,jdbcType=VARCHAR}, #{btakeFare,jdbcType=DOUBLE}, #{takeFare,jdbcType=DOUBLE}, 
+      #{typeId,jdbcType=INTEGER}, #{foodlicence,jdbcType=VARCHAR}, #{businesslicence,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{workTime,jdbcType=VARCHAR}, #{grade,jdbcType=INTEGER}, 
+      #{rstrImage,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.MeiTuan.pojo.TRestaurant" >
+    insert into t_restaurant
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rstrId != null" >
+        rstr_id,
+      </if>
+      <if test="rstrName != null" >
+        rstr_name,
+      </if>
+      <if test="telephone != null" >
+        telephone,
+      </if>
+      <if test="takeTime != null" >
+        take_time,
+      </if>
+      <if test="btakeFare != null" >
+        btake_fare,
+      </if>
+      <if test="takeFare != null" >
+        take_fare,
+      </if>
+      <if test="typeId != null" >
+        type_id,
+      </if>
+      <if test="foodlicence != null" >
+        foodLicence,
+      </if>
+      <if test="businesslicence != null" >
+        businessLicence,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="workTime != null" >
+        work_time,
+      </if>
+      <if test="grade != null" >
+        grade,
+      </if>
+      <if test="rstrImage != null" >
+        rstr_image,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rstrId != null" >
+        #{rstrId,jdbcType=INTEGER},
+      </if>
+      <if test="rstrName != null" >
+        #{rstrName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTime != null" >
+        #{takeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="btakeFare != null" >
+        #{btakeFare,jdbcType=DOUBLE},
+      </if>
+      <if test="takeFare != null" >
+        #{takeFare,jdbcType=DOUBLE},
+      </if>
+      <if test="typeId != null" >
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="foodlicence != null" >
+        #{foodlicence,jdbcType=VARCHAR},
+      </if>
+      <if test="businesslicence != null" >
+        #{businesslicence,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="rstrImage != null" >
+        #{rstrImage,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.MeiTuan.pojo.TRestaurantExample" resultType="java.lang.Integer" >
+    select count(*) from t_restaurant
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_restaurant
+    <set >
+      <if test="record.rstrId != null" >
+        rstr_id = #{record.rstrId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rstrName != null" >
+        rstr_name = #{record.rstrName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.telephone != null" >
+        telephone = #{record.telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.takeTime != null" >
+        take_time = #{record.takeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.btakeFare != null" >
+        btake_fare = #{record.btakeFare,jdbcType=DOUBLE},
+      </if>
+      <if test="record.takeFare != null" >
+        take_fare = #{record.takeFare,jdbcType=DOUBLE},
+      </if>
+      <if test="record.typeId != null" >
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.foodlicence != null" >
+        foodLicence = #{record.foodlicence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businesslicence != null" >
+        businessLicence = #{record.businesslicence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.workTime != null" >
+        work_time = #{record.workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.grade != null" >
+        grade = #{record.grade,jdbcType=INTEGER},
+      </if>
+      <if test="record.rstrImage != null" >
+        rstr_image = #{record.rstrImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_restaurant
+    set rstr_id = #{record.rstrId,jdbcType=INTEGER},
+      rstr_name = #{record.rstrName,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      take_time = #{record.takeTime,jdbcType=VARCHAR},
+      btake_fare = #{record.btakeFare,jdbcType=DOUBLE},
+      take_fare = #{record.takeFare,jdbcType=DOUBLE},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      foodLicence = #{record.foodlicence,jdbcType=VARCHAR},
+      businessLicence = #{record.businesslicence,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      work_time = #{record.workTime,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=INTEGER},
+      rstr_image = #{record.rstrImage,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_restaurant
+    set rstr_id = #{record.rstrId,jdbcType=INTEGER},
+      rstr_name = #{record.rstrName,jdbcType=VARCHAR},
+      telephone = #{record.telephone,jdbcType=VARCHAR},
+      take_time = #{record.takeTime,jdbcType=VARCHAR},
+      btake_fare = #{record.btakeFare,jdbcType=DOUBLE},
+      take_fare = #{record.takeFare,jdbcType=DOUBLE},
+      type_id = #{record.typeId,jdbcType=INTEGER},
+      foodLicence = #{record.foodlicence,jdbcType=VARCHAR},
+      businessLicence = #{record.businesslicence,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      work_time = #{record.workTime,jdbcType=VARCHAR},
+      grade = #{record.grade,jdbcType=INTEGER},
+      rstr_image = #{record.rstrImage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.MeiTuan.pojo.TRestaurant" >
+    update t_restaurant
+    <set >
+      <if test="rstrName != null" >
+        rstr_name = #{rstrName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null" >
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="takeTime != null" >
+        take_time = #{takeTime,jdbcType=VARCHAR},
+      </if>
+      <if test="btakeFare != null" >
+        btake_fare = #{btakeFare,jdbcType=DOUBLE},
+      </if>
+      <if test="takeFare != null" >
+        take_fare = #{takeFare,jdbcType=DOUBLE},
+      </if>
+      <if test="typeId != null" >
+        type_id = #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="foodlicence != null" >
+        foodLicence = #{foodlicence,jdbcType=VARCHAR},
+      </if>
+      <if test="businesslicence != null" >
+        businessLicence = #{businesslicence,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="workTime != null" >
+        work_time = #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="grade != null" >
+        grade = #{grade,jdbcType=INTEGER},
+      </if>
+      <if test="rstrImage != null" >
+        rstr_image = #{rstrImage,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where rstr_id = #{rstrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.MeiTuan.pojo.TRestaurant" >
+    update t_restaurant
+    set rstr_name = #{rstrName,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      take_time = #{takeTime,jdbcType=VARCHAR},
+      btake_fare = #{btakeFare,jdbcType=DOUBLE},
+      take_fare = #{takeFare,jdbcType=DOUBLE},
+      type_id = #{typeId,jdbcType=INTEGER},
+      foodLicence = #{foodlicence,jdbcType=VARCHAR},
+      businessLicence = #{businesslicence,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      rstr_image = #{rstrImage,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR}
+    where rstr_id = #{rstrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.MeiTuan.pojo.TRestaurant" >
+    update t_restaurant
+    set rstr_name = #{rstrName,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=VARCHAR},
+      take_time = #{takeTime,jdbcType=VARCHAR},
+      btake_fare = #{btakeFare,jdbcType=DOUBLE},
+      take_fare = #{takeFare,jdbcType=DOUBLE},
+      type_id = #{typeId,jdbcType=INTEGER},
+      foodLicence = #{foodlicence,jdbcType=VARCHAR},
+      businessLicence = #{businesslicence,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      work_time = #{workTime,jdbcType=VARCHAR},
+      grade = #{grade,jdbcType=INTEGER},
+      rstr_image = #{rstrImage,jdbcType=VARCHAR}
+    where rstr_id = #{rstrId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllRest" resultMap="TRestaurant_typeResultMap">
+      select *
+      from t_restaurant,t_restaurant_Type
+      where t_restaurant.type_id = t_restaurant_type.type_id
+  </select>
+</mapper>

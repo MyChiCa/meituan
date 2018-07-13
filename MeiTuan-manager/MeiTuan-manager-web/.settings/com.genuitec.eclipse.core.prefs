@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+validator.Checked=src/main/webapp/WEB-INF/jsp/user/userManage.jsp,/
+validator.Revalidate=true
+validator.Unchecked=src/main/resources,src/main/java,.project,src/main/webapp,src/test,.settings,pom.xml,.classpath

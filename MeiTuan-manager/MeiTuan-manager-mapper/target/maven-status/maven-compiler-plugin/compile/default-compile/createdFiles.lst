@@ -1,0 +1,11 @@
+com\MeiTuan\mapper\TEvaluateMapper.class
+com\MeiTuan\mapper\TOrderDetailsMapper.class
+com\MeiTuan\mapper\TRestaurantMapper.class
+com\MeiTuan\mapper\TCollectMapper.class
+com\MeiTuan\mapper\TAdminMapper.class
+com\MeiTuan\mapper\TRestaurantTypeMapper.class
+com\MeiTuan\mapper\TUserMapper.class
+com\MeiTuan\mapper\TBusinessMapper.class
+com\MeiTuan\mapper\TFoodMapper.class
+com\MeiTuan\mapper\TMenuMapper.class
+com\MeiTuan\mapper\TOrderMapper.class

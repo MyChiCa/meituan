@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.MeiTuan.mapper.TOrderExtendMapper" >
+  <resultMap id="BaseResultMap" type="com.MeiTuan.pojo.OrderExtend" >
+      <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="order_state" property="orderState" jdbcType="INTEGER" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="showAllOrders" resultMap="BaseResultMap">
+       select o.order_id,o.order_time,o.order_state,u.user_name
+       from t_order o,t_user u,t_business b
+       where o.rstr_id=b.rstr_id
+       and u.user_id=o.user_id
+  </select>
+      <update id="updateState" parameterType="java.lang.Integer" >
+        update t_order
+        set t_order.order_state=2
+        where t_order.order_id=#{id}
+    </update>
+  
+  
+ </mapper>

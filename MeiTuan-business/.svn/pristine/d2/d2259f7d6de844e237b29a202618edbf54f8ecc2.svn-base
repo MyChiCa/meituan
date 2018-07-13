@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.MeiTuan.mapper.TFoodMapper" >
+  <resultMap id="BaseResultMap" type="com.MeiTuan.pojo.TFood" >
+    <id column="food_id" property="foodId" jdbcType="INTEGER" />
+    <result column="food_name" property="foodName" jdbcType="VARCHAR" />
+    <result column="food_image" property="foodImage" jdbcType="VARCHAR" />
+    <result column="food_price" property="foodPrice" jdbcType="REAL" />
+    <result column="menu_id" property="menuId" jdbcType="INTEGER" />
+    <result column="food_num" property="foodNum" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.MeiTuan.pojo.TFood" extends="BaseResultMap" >
+    <result column="food_describe" property="foodDescribe" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    food_id, food_name, food_image, food_price, menu_id, food_num
+  </sql>
+  <sql id="Blob_Column_List" >
+    food_describe
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.MeiTuan.pojo.TFoodExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_food
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.MeiTuan.pojo.TFoodExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_food
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_food
+    where food_id = #{foodId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_food
+    where food_id = #{foodId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.MeiTuan.pojo.TFoodExample" >
+    delete from t_food
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.MeiTuan.pojo.TFood" >
+    insert into t_food (food_name, food_image, 
+      food_price, menu_id, food_num, 
+      food_describe)
+    values ( #{foodName,jdbcType=VARCHAR}, #{foodImage,jdbcType=VARCHAR}, 
+      #{foodPrice,jdbcType=REAL}, #{menuId,jdbcType=INTEGER}, #{foodNum,jdbcType=INTEGER}, 
+      #{foodDescribe,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.MeiTuan.pojo.TFood" >
+    insert into t_food
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="foodId != null" >
+        food_id,
+      </if>
+      <if test="foodName != null" >
+        food_name,
+      </if>
+      <if test="foodImage != null" >
+        food_image,
+      </if>
+      <if test="foodPrice != null" >
+        food_price,
+      </if>
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="foodNum != null" >
+        food_num,
+      </if>
+      <if test="foodDescribe != null" >
+        food_describe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="foodId != null" >
+        #{foodId,jdbcType=INTEGER},
+      </if>
+      <if test="foodName != null" >
+        #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodImage != null" >
+        #{foodImage,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null" >
+        #{foodPrice,jdbcType=REAL},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="foodNum != null" >
+        #{foodNum,jdbcType=INTEGER},
+      </if>
+      <if test="foodDescribe != null" >
+        #{foodDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.MeiTuan.pojo.TFoodExample" resultType="java.lang.Integer" >
+    select count(*) from t_food
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_food
+    <set >
+      <if test="record.foodId != null" >
+        food_id = #{record.foodId,jdbcType=INTEGER},
+      </if>
+      <if test="record.foodName != null" >
+        food_name = #{record.foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodImage != null" >
+        food_image = #{record.foodImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodPrice != null" >
+        food_price = #{record.foodPrice,jdbcType=REAL},
+      </if>
+      <if test="record.menuId != null" >
+        menu_id = #{record.menuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.foodNum != null" >
+        food_num = #{record.foodNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.foodDescribe != null" >
+        food_describe = #{record.foodDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_food
+    set food_id = #{record.foodId,jdbcType=INTEGER},
+      food_name = #{record.foodName,jdbcType=VARCHAR},
+      food_image = #{record.foodImage,jdbcType=VARCHAR},
+      food_price = #{record.foodPrice,jdbcType=REAL},
+      menu_id = #{record.menuId,jdbcType=INTEGER},
+      food_num = #{record.foodNum,jdbcType=INTEGER},
+      food_describe = #{record.foodDescribe,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_food
+    set food_id = #{record.foodId,jdbcType=INTEGER},
+      food_name = #{record.foodName,jdbcType=VARCHAR},
+      food_image = #{record.foodImage,jdbcType=VARCHAR},
+      food_price = #{record.foodPrice,jdbcType=REAL},
+      menu_id = #{record.menuId,jdbcType=INTEGER},
+      food_num = #{record.foodNum,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.MeiTuan.pojo.TFood" >
+    update t_food
+    <set >
+      <if test="foodName != null" >
+        food_name = #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodImage != null" >
+        food_image = #{foodImage,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null" >
+        food_price = #{foodPrice,jdbcType=REAL},
+      </if>
+      <if test="menuId != null" >
+        menu_id = #{menuId,jdbcType=INTEGER},
+      </if>
+      <if test="foodNum != null" >
+        food_num = #{foodNum,jdbcType=INTEGER},
+      </if>
+      <if test="foodDescribe != null" >
+        food_describe = #{foodDescribe,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where food_id = #{foodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.MeiTuan.pojo.TFood" >
+    update t_food
+    set food_name = #{foodName,jdbcType=VARCHAR},
+      food_image = #{foodImage,jdbcType=VARCHAR},
+      food_price = #{foodPrice,jdbcType=REAL},
+      menu_id = #{menuId,jdbcType=INTEGER},
+      food_num = #{foodNum,jdbcType=INTEGER},
+      food_describe = #{foodDescribe,jdbcType=LONGVARCHAR}
+    where food_id = #{foodId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.MeiTuan.pojo.TFood" >
+    update t_food
+    set food_name = #{foodName,jdbcType=VARCHAR},
+      food_image = #{foodImage,jdbcType=VARCHAR},
+      food_price = #{foodPrice,jdbcType=REAL},
+      menu_id = #{menuId,jdbcType=INTEGER},
+      food_num = #{foodNum,jdbcType=INTEGER}
+    where food_id = #{foodId,jdbcType=INTEGER}
+  </update>
+    <select id="selectAllFood" parameterType="com.MeiTuan.pojo.TBusiness" resultMap="BaseResultMap">
+      select * from t_food,t_menu,t_restaurant
+       where t_food.menu_id = t_menu.menu_id 
+       and t_menu.rstr_id = t_restaurant.rstr_id
+       and t_restaurant.rstr_id = 
+       (select rstr_id from t_business
+       where T_business.business_id=#{businessId,jdbcType=INTEGER})
+  </select>
+ 
+</mapper>

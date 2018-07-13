@@ -1,0 +1,134 @@
+@charset "utf-8";
+
+#footer{
+	margin:0px auto;
+	height:160px;
+	width:1366px;
+	position:absolute;
+	bottom:0px;
+}
+.font_style{
+	margin-top:20px;
+	color:rgb(170,170,170);
+}
+fieldset{
+	width:300px;
+	height:400px;
+	border:1px solid rgb(255,255,255);
+	border-radius:10px;
+	background-color:rgb(250,250,250);
+}
+#register_content{
+	background-image:url(../../images/register/city.jpg);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+#telephone,#password,#con_pword{
+	width:170px;
+	height:30px;
+	border-radius:5px;
+	outline:none;
+}
+#telephone:focus,#password:focus,#con_pword:focus{
+	border-color:rgb(20,50,230);
+}
+#telephone{
+	margin-top:30px;
+}
+#password{
+	margin-top:20px;
+}
+#con_pword{
+	margin-top:20px;
+	margin-bottom:20px
+}
+#con{
+	clear:both;
+}
+#protocol~a{
+	color:rgb(250,180,60);
+	font-size:0.8em;
+}
+
+hr{
+	border-top:1px solid rgb(210,210,210);
+}
+legend{
+	color:rgb(50,110,230);
+	font-weight:bold;
+	font-style:italic;
+}
+fieldset span{
+	display:block;
+	float:left;
+	width:70px;
+	height:20px;
+	border-radius:3px;
+	background-color:rgb(230,230,230);
+	color:white;
+}
+#power{
+	margin-left:45px;
+}
+#register{
+	width:150px;
+	height:30px;
+	margin-top:35px;
+	border-radius: 5px;
+}
+.check{
+	color:rgb(255,255,255);
+	background-color:rgb(20,50,230);
+	border:1px solid rgb(20,50,230);
+}
+.check:hover{
+	background-color:rgb(80,130,250);
+}
+#register:active{
+	
+}
+.triangle{
+	width:40px;
+	height:40px;
+}
+#triangle1{
+	position:absolute;
+	left:800px;
+	top:117px;
+}
+#triangle2{
+	position:absolute;
+	left:800px;
+	top:170px;
+}
+#triangle3{
+	position:absolute;
+	left:800px;
+	top:243px;
+}
+.position{
+	visibility:hidden;
+}
+.judge{
+	height:40px;
+	background:rgba(50,110,230,0.9);
+	color:rgb(255,255,255);
+	line-height:40px;
+	border-radius:10px;
+	border:1 rgb(50,110,230) solid;
+}
+#judge1{
+	position:absolute;
+	left:828px;
+	top:117px;
+}
+#judge2{
+	position:absolute;
+	left:828px;
+	top:170px;
+}
+#judge3{
+	position:absolute;
+	left:828px;
+	top:243px;
+}

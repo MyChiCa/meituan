@@ -1,0 +1,13 @@
+package com.meituan.service;
+
+import java.util.List;
+
+import com.MeiTuan.pojo.TRestaurant;
+
+public interface RestaurantService {
+     List<TRestaurant> showAllRestaurant();
+     TRestaurant findById(Integer rstrId);
+	 void updateById(TRestaurant tRestaurant);
+	 void deleteById(Integer rstrId);
+	 void insertRstr(TRestaurant tRestaurant);
+}

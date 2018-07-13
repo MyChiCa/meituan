@@ -1,0 +1,75 @@
+package com.MeiTuan.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.MeiTuan.pojo.TRestaurant;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.meituan.service.RestaurantService;
+
+@Controller
+@RequestMapping("/restaurant")
+public class RestaurantController {
+	
+@Autowired
+private RestaurantService restaurantService;
+     @RequestMapping(value="/showData",method = {RequestMethod.POST,RequestMethod.GET })
+     public String showData(HttpServletRequest request){
+    	 String pageNum = request.getParameter("pageNum");
+         String pageSize =request.getParameter("pageSize");
+         int num = 1;
+         int size = 10;
+         if (pageNum != null && !"".equals(pageNum)) {
+             num = Integer.parseInt(pageNum);
+         }   
+         if (pageSize != null && !"".equals(pageSize)) {
+             size = Integer.parseInt(pageSize);
+         }
+         PageHelper.startPage(num, size);
+     	List<TRestaurant> restList = restaurantService.showAllRestaurant();
+     	PageInfo<TRestaurant> pages = new PageInfo<TRestaurant>(restList);
+     	request.setAttribute("pages", pages);
+     	return "restaurant/adminAllRestaurant";
+     }
+     
+     @RequestMapping("/showById")
+     @ResponseBody
+      public TRestaurant showById(Integer rstrId){
+    	 TRestaurant rstr = restaurantService.findById(rstrId);
+  	     return rstr;
+     }
+     
+     @RequestMapping("/updateRstr")
+     public String updateRstr(TRestaurant tRestaurant){
+    	 restaurantService.updateById(tRestaurant);
+    	 return "redirect:showData";
+     }
+     @RequestMapping("/delete")
+     public String deleteById(Integer rstrId){
+    	 restaurantService.deleteById(rstrId);
+    	 return "redirect:showData";
+     }
+     @RequestMapping("/insert")
+     public String insert(TRestaurant tRestaurant,Model model){
+       	 if("".equals(tRestaurant.getRstrName())){
+    		 model.addAttribute("errorMsg", "店铺名不能为空");
+    		 return "showData";
+    	 }
+    	 if("".equals(tRestaurant.getTelephone())){
+    		 model.addAttribute("msg2", "电话号码不能为空");
+    		 return "showData";
+    	 }
+    	 System.out.println("".equals(tRestaurant.getTelephone()));
+    	 restaurantService.insertRstr(tRestaurant);
+    	 return "redirect:showData";
+     }
+}

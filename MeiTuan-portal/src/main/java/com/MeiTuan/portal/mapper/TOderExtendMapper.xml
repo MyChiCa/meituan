@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.MeiTuan.portal.mapper.TOderExtendMapper" >
+  <resultMap id="BSResultMap" type="com.MeiTuan.portal.pojo.OrderExtend" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="rstr_id" property="rstrId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="REAL" />
+    <result column="order_time" property="orderTime" jdbcType="TIMESTAMP" />
+    <result column="order_state" property="orderState" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="food_num" jdbcType="INTEGER" property="foodNum" />
+    <result column="food_money" jdbcType="REAL" property="foodMoney" />
+    <result column="food_name" property="foodName" jdbcType="VARCHAR" />
+    <result column="rstr_name" property="rstrName" jdbcType="VARCHAR" />
+    <result column="food_image" property="foodImage" jdbcType="VARCHAR" />
+    <result column="take_fare" property="takeFare" jdbcType="DOUBLE" />
+  </resultMap>
+  
+    <select id="showOrder" resultMap="BSResultMap" parameterType="java.lang.Integer">
+        select f.food_name,d.food_money,d.food_num,R.rstr_name,o.order_id,f.food_image,R.take_fare
+         from t_food f,t_user u,t_order_details d,t_restaurant R,t_order o
+         where u.user_id=o.user_id
+         and f.food_id=d.food_id
+         and o.rstr_id=R.rstr_id
+         and d.order_id=o.order_id
+         and o.order_id = #{orderId}
+    </select>
+    <!-- 更新订单状态 -->
+    <update id="updateState" parameterType="java.lang.Integer" >
+        update t_order
+        set t_order.order_state=1
+        where t_order.order_id=#{id}
+    </update>
+    
+    <select id="showTotalMoney" resultMap="BSResultMap" parameterType="java.lang.Integer">
+        SELECT sum(food_money) as money,order_id
+        from t_order_details
+        where t_order_details.order_id=#{id}
+    </select>
+  </mapper>
